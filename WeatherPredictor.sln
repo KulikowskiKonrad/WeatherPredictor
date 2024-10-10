@@ -7,6 +7,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3E02794D-681
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherPredictor.API", "src\WeatherPredictor.API\WeatherPredictor.API.csproj", "{83B7613B-9168-4504-AE87-8628FD063D4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherPredictor.Application", "src\WeatherPredictor.Application\WeatherPredictor.Application.csproj", "{2A80C178-D130-4C56-9093-C79040B9FCBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherPredictor.Domain", "src\WeatherPredictor.Domain\WeatherPredictor.Domain.csproj", "{C69B6276-D341-4182-A586-8BB774530A0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherPredictor.Infrastructure", "src\WeatherPredictor.Infrastructure\WeatherPredictor.Infrastructure.csproj", "{C7706DFA-7578-4499-BD20-8B16BE34876C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +26,23 @@ Global
 		{83B7613B-9168-4504-AE87-8628FD063D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83B7613B-9168-4504-AE87-8628FD063D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83B7613B-9168-4504-AE87-8628FD063D4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A80C178-D130-4C56-9093-C79040B9FCBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A80C178-D130-4C56-9093-C79040B9FCBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A80C178-D130-4C56-9093-C79040B9FCBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A80C178-D130-4C56-9093-C79040B9FCBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C69B6276-D341-4182-A586-8BB774530A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C69B6276-D341-4182-A586-8BB774530A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C69B6276-D341-4182-A586-8BB774530A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C69B6276-D341-4182-A586-8BB774530A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7706DFA-7578-4499-BD20-8B16BE34876C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7706DFA-7578-4499-BD20-8B16BE34876C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7706DFA-7578-4499-BD20-8B16BE34876C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7706DFA-7578-4499-BD20-8B16BE34876C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{83B7613B-9168-4504-AE87-8628FD063D4E} = {3E02794D-6816-4406-AFEB-8DB0B214C531}
+		{2A80C178-D130-4C56-9093-C79040B9FCBC} = {3E02794D-6816-4406-AFEB-8DB0B214C531}
+		{C69B6276-D341-4182-A586-8BB774530A0A} = {3E02794D-6816-4406-AFEB-8DB0B214C531}
+		{C7706DFA-7578-4499-BD20-8B16BE34876C} = {3E02794D-6816-4406-AFEB-8DB0B214C531}
 	EndGlobalSection
 EndGlobal
