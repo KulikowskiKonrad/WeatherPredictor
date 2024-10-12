@@ -9,8 +9,8 @@ public class AddWeatherRequest
     public string? Timezone { get; set; }
     public string? TimezoneAbbreviation { get; set; }
     public double? Elevation { get; set; }
-    public CurrentWeatherUnits CurrentWeatherUnits { get; set; } = new();
-    public CurrentWeather CurrentWeather { get; set; } = new();
+    public CurrentWeatherUnits CurrentWeatherUnitsDto { get; set; } = new();
+    public CurrentWeather CurrentWeatherDto { get; set; } = new();
 }
 
 public class CurrentWeatherUnits

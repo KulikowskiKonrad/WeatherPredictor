@@ -23,29 +23,15 @@ public class WeatherController : ControllerBase
     {
         var query = new GetWeatherDetailsQuery(latitude, longitude);
 
-        var result = await _mediator.Send(query);
-
-        if (result == null)
-        {
-            return NotFound();
-        }
-
-        return Ok();
+        return Ok(await _mediator.Send(query));
     }
 
     [HttpGet("coordinates")]
     public async Task<ActionResult<List<CoordinatesDto>>> GetCoordinatesList()
     {
         var query = new GetCoordinatesQuery();
-
-        var result = await _mediator.Send(query);
-        
-        if(result == null)
-        {
-            return NotFound();
-        }
-        
-        return Ok();
+    
+        return Ok(await _mediator.Send(query));
     }
 
     [HttpDelete]
@@ -72,23 +58,23 @@ public class WeatherController : ControllerBase
                 Elevation = request.Elevation,
                 CurrentWeatherUnits = new SaveWeatherCommand.CurrentWeatherUnitsCommand
                 {
-                    Time = request.CurrentWeatherUnits.Time,
-                    Interval = request.CurrentWeatherUnits.Interval,
-                    Temperature = request.CurrentWeatherUnits.Temperature,
-                    Windspeed = request.CurrentWeatherUnits.Windspeed,
-                    Winddirection = request.CurrentWeatherUnits.Winddirection,
-                    IsDay = request.CurrentWeatherUnits.IsDay,
-                    WeatherCode = request.CurrentWeatherUnits.WeatherCode
+                    Time = request.CurrentWeatherUnitsDto.Time,
+                    Interval = request.CurrentWeatherUnitsDto.Interval,
+                    Temperature = request.CurrentWeatherUnitsDto.Temperature,
+                    Windspeed = request.CurrentWeatherUnitsDto.Windspeed,
+                    Winddirection = request.CurrentWeatherUnitsDto.Winddirection,
+                    IsDay = request.CurrentWeatherUnitsDto.IsDay,
+                    WeatherCode = request.CurrentWeatherUnitsDto.WeatherCode
                 },
                 CurrentWeather = new SaveWeatherCommand.CurrentWeatherCommand
                 {
-                    Time = request.CurrentWeather.Time,
-                    Interval = request.CurrentWeather.Interval,
-                    Temperature = request.CurrentWeather.Temperature,
-                    Windspeed = request.CurrentWeather.Windspeed,
-                    Winddirection = request.CurrentWeather.Winddirection,
-                    IsDay = request.CurrentWeather.IsDay,
-                    WeatherCode = request.CurrentWeather.WeatherCode
+                    Time = request.CurrentWeatherDto.Time,
+                    Interval = request.CurrentWeatherDto.Interval,
+                    Temperature = request.CurrentWeatherDto.Temperature,
+                    Windspeed = request.CurrentWeatherDto.Windspeed,
+                    Winddirection = request.CurrentWeatherDto.Winddirection,
+                    IsDay = request.CurrentWeatherDto.IsDay,
+                    WeatherCode = request.CurrentWeatherDto.WeatherCode
                 }
             });
 
