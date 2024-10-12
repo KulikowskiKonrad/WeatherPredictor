@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\WeatherPredictor.API\WeatherPredictor.API.csproj" />
+      <ProjectReference Include="..\..\src\WeatherPredictor.Application\WeatherPredictor.Application.csproj" />
+      <ProjectReference Include="..\..\src\WeatherPredictor.Domain\WeatherPredictor.Domain.csproj" />
+      <ProjectReference Include="..\..\src\WeatherPredictor.Infrastructure\WeatherPredictor.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+      <PackageReference Include="NetArchTest.Rules" Version="1.3.2" />
+      <PackageReference Include="xunit" Version="2.9.2" />
+    </ItemGroup>
+
+</Project>

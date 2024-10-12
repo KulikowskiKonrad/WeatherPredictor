@@ -10,4 +10,10 @@
       <ProjectReference Include="..\WeatherPredictor.Domain\WeatherPredictor.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="12.4.1" />
+      <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="9.0.0-rc.2.24473.5" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0-rc.2.24473.5" />
+    </ItemGroup>
+
 </Project>

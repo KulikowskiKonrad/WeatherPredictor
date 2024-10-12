@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherPredictor.Domain", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherPredictor.Infrastructure", "src\WeatherPredictor.Infrastructure\WeatherPredictor.Infrastructure.csproj", "{C7706DFA-7578-4499-BD20-8B16BE34876C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C7A2936B-5B9C-4A55-8403-B17AABD5D14A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherPredictor.Tests.Architecture", "tests\WeatherPredictor.Tests.Architecture\WeatherPredictor.Tests.Architecture.csproj", "{50356AF5-E806-41C2-8038-D5C529ECAD6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,11 +42,16 @@ Global
 		{C7706DFA-7578-4499-BD20-8B16BE34876C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7706DFA-7578-4499-BD20-8B16BE34876C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7706DFA-7578-4499-BD20-8B16BE34876C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50356AF5-E806-41C2-8038-D5C529ECAD6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50356AF5-E806-41C2-8038-D5C529ECAD6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50356AF5-E806-41C2-8038-D5C529ECAD6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50356AF5-E806-41C2-8038-D5C529ECAD6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{83B7613B-9168-4504-AE87-8628FD063D4E} = {3E02794D-6816-4406-AFEB-8DB0B214C531}
 		{2A80C178-D130-4C56-9093-C79040B9FCBC} = {3E02794D-6816-4406-AFEB-8DB0B214C531}
 		{C69B6276-D341-4182-A586-8BB774530A0A} = {3E02794D-6816-4406-AFEB-8DB0B214C531}
 		{C7706DFA-7578-4499-BD20-8B16BE34876C} = {3E02794D-6816-4406-AFEB-8DB0B214C531}
+		{50356AF5-E806-41C2-8038-D5C529ECAD6F} = {C7A2936B-5B9C-4A55-8403-B17AABD5D14A}
 	EndGlobalSection
 EndGlobal
