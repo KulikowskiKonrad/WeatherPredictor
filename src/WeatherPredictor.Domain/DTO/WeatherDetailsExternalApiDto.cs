@@ -29,13 +29,13 @@ public class WeatherDetailsExternalApiDto
     public int? LocationId { get; set; }
 
     [JsonPropertyName("current_weather_units")]
-    public CurrentWeatherUnitsExternalApiDto CurrentWeatherUnitsExternalApiDto { get; set; }
+    public CurrentWeatherUnits CurrentWeatherUnits { get; set; } = new();
 
-    [JsonPropertyName("current_weather")]
-    public CurrentWeatherExternalApiDto CurrentWeatherExternalApiDto { get; set; }
+    [JsonPropertyName("current_weather")] 
+    public CurrentWeather CurrentWeather { get; set; } = new();
 }
 
-public class CurrentWeatherUnitsExternalApiDto
+public class CurrentWeatherUnits
 {
     [JsonPropertyName("time")]
     public string Time { get; set; }
@@ -59,7 +59,7 @@ public class CurrentWeatherUnitsExternalApiDto
     public string WeatherCode { get; set; }
 }
 
-public class CurrentWeatherExternalApiDto
+public class CurrentWeather
 {
     [JsonPropertyName("time")]
     public string Time { get; set; }
@@ -79,6 +79,6 @@ public class CurrentWeatherExternalApiDto
     [JsonPropertyName("is_day")]
     public int? IsDay { get; set; }
 
-    [JsonPropertyName("weathercode")]
-    public int? WeatherCode { get; set; }
+    // [JsonPropertyName("weathercode")]
+    // public int? WeatherCode { get; set; }
 }

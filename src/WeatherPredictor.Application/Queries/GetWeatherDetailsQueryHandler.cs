@@ -78,28 +78,28 @@ public sealed class GetWeatherDetailsQueryHandler : IQueryHandler<GetWeatherDeta
             TimezoneAbbreviation = externalDto.TimezoneAbbreviation,
             Elevation = externalDto.Elevation,
             LocationId = externalDto.LocationId,
-            CurrentWeatherUnitsDto = externalDto.CurrentWeatherUnitsExternalApiDto != null
+            CurrentWeatherUnitsDto = externalDto.CurrentWeatherUnits != null
                 ? new CurrentWeatherUnitsDto
                 {
-                    Time = externalDto.CurrentWeatherUnitsExternalApiDto.Time,
-                    Interval = externalDto.CurrentWeatherUnitsExternalApiDto.Interval,
-                    Temperature = externalDto.CurrentWeatherUnitsExternalApiDto.Temperature,
-                    Windspeed = externalDto.CurrentWeatherUnitsExternalApiDto.Windspeed,
-                    Winddirection = externalDto.CurrentWeatherUnitsExternalApiDto.Winddirection,
-                    IsDay = externalDto.CurrentWeatherUnitsExternalApiDto.IsDay,
-                    WeatherCode = externalDto.CurrentWeatherUnitsExternalApiDto.WeatherCode
+                    Time = externalDto.CurrentWeatherUnits.Time,
+                    Interval = externalDto.CurrentWeatherUnits.Interval,
+                    Temperature = externalDto.CurrentWeatherUnits.Temperature,
+                    Windspeed = externalDto.CurrentWeatherUnits.Windspeed,
+                    Winddirection = externalDto.CurrentWeatherUnits.Winddirection,
+                    IsDay = externalDto.CurrentWeatherUnits.IsDay,
+                    WeatherCode = externalDto.CurrentWeatherUnits.WeatherCode
                 }
                 : null,
-            CurrentWeatherDto = externalDto.CurrentWeatherExternalApiDto != null
+            CurrentWeatherDto = externalDto.CurrentWeather != null
                 ? new CurrentWeatherDto
                 {
-                    Time = externalDto.CurrentWeatherExternalApiDto.Time,
-                    Interval = externalDto.CurrentWeatherExternalApiDto.Interval,
-                    Temperature = externalDto.CurrentWeatherExternalApiDto.Temperature,
-                    Windspeed = externalDto.CurrentWeatherExternalApiDto.Windspeed,
-                    Winddirection = externalDto.CurrentWeatherExternalApiDto.Winddirection,
-                    IsDay = externalDto.CurrentWeatherExternalApiDto.IsDay,
-                    WeatherCode = externalDto.CurrentWeatherExternalApiDto.WeatherCode
+                    Time = externalDto.CurrentWeather.Time,
+                    Interval = externalDto.CurrentWeather.Interval,
+                    Temperature = externalDto.CurrentWeather.Temperature,
+                    Windspeed = externalDto.CurrentWeather.Windspeed,
+                    Winddirection = externalDto.CurrentWeather.Winddirection,
+                    IsDay = externalDto.CurrentWeather.IsDay,
+                    // WeatherCode = externalDto.CurrentWeather.WeatherCode
                 }
                 : null
         };

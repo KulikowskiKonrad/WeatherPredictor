@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
 using WeatherPredictor.Application.Exceptions;
 using WeatherPredictor.Application.Services.Abstractions;
@@ -18,6 +19,8 @@ public class WeatherApiService : IWeatherApiService
 
     public async Task<T> GetDetailsAsync<T>(double latitude, double longitude)
     {
+        _logger.LogInformation("Get weather details.");
+
         var requestMessage = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
@@ -26,8 +29,6 @@ public class WeatherApiService : IWeatherApiService
                     $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true")
         };
 
-        _logger.LogInformation("Get weather details.");
-
         var response = await _httpClient.SendAsync(requestMessage);
 
         return await GetResultAsync<T>(response);
@@ -35,7 +36,7 @@ public class WeatherApiService : IWeatherApiService
 
     private async Task<T> GetResultAsync<T>(HttpResponseMessage? response)
     {
-        T? result = default;
+        T[]? result = default;
 
         if (response.IsSuccessStatusCode)
         {
@@ -45,12 +46,18 @@ public class WeatherApiService : IWeatherApiService
             {
                 if (!x.IsFaulted)
                 {
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                    };
+                    
                     _logger.LogInformation($"Response: {x.Result}");
-                    result = JsonSerializer.Deserialize<T>(x.Result);
+                    result = JsonSerializer.Deserialize<T[]>(x.Result, options);
                 }
             });
 
-            return result;
+            return result.FirstOrDefault();
         }
 
         _logger.LogInformation(

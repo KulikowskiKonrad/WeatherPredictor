@@ -15,8 +15,8 @@ public class SaveWeatherCommand : ICommand
         public string? Timezone { get; set; }
         public string? TimezoneAbbreviation { get; set; }
         public double? Elevation { get; set; }
-        public CurrentWeatherUnitsCommand CurrentWeatherUnits { get; set; }
-        public CurrentWeatherCommand CurrentWeather { get; set; }
+        public CurrentWeatherUnitsCommand CurrentWeatherUnits { get; set; } = new();
+        public CurrentWeatherCommand CurrentWeather { get; set; } = new();
     }
 
     public class CurrentWeatherUnitsCommand
