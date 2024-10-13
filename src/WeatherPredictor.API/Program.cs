@@ -24,11 +24,8 @@ builder.Services.AddInfrastructure(builder.Environment, builder.Configuration);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/", "Weather predictor"); });
 
 app.UseCustomExceptionHandler();
 app.UseHsts();
