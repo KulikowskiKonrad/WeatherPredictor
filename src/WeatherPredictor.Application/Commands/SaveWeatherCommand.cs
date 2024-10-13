@@ -26,7 +26,7 @@ public class SaveWeatherCommand : ICommand
         public string? Temperature { get; set; }
         public string? Windspeed { get; set; }
         public string? Winddirection { get; set; }
-        public bool? IsDay { get; set; }
+        public string? IsDay { get; set; }
         public string? WeatherCode { get; set; }
     }
 
@@ -37,7 +37,7 @@ public class SaveWeatherCommand : ICommand
         public double? Temperature { get; set; }
         public double? Windspeed { get; set; }
         public int? Winddirection { get; set; }
-        public bool? IsDay { get; set; }
+        public int? IsDay { get; set; }
         public int? WeatherCode { get; set; }
     }
 
