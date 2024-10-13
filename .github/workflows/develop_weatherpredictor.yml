@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - weatherPredictor
+name: Build and deploy ASP.Net Core app to Azure Web App - weatherpredictor
 
 on:
   push:
@@ -51,15 +51,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_3439ADEFBEF34B318D72349C3F86B44D }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7C1D69306F42409EAED70DC886A0336B }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_08984960233C44EEA6AC7F85CACFC573 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D3BCA23F431F452BBB5D1A0CD6E05A84 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9200747D3CE14EA7B1D64596FA3C07ED }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_217F63BFD7C445F29FAD55A48111F8C7 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'weatherPredictor'
+          app-name: 'weatherpredictor'
           slot-name: 'Production'
           package: .
           
