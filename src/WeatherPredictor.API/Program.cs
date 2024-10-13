@@ -18,11 +18,6 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1",
         Description = "API to retrieve weather information"
     });
-    
-    c.AddServer(new Microsoft.OpenApi.Models.OpenApiServer
-    {
-        Url = "https://weatherpredictorapp.azurewebsites.net"
-    });
 });
 
 builder.Services.Configure<OpenMeteoOptions>(
