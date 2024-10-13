@@ -1,53 +1,15 @@
-﻿using WeatherPredictor.Application.Exceptions;
+﻿using Polly;
+using Polly.Extensions.Http;
 
-namespace WeatherPredictor.Infrastructure.Utils;
+namespace WeatherPredictor.Application.Utils;
 
 public static class RetryPolicy
 {
-    public static async Task<T> ExecuteWithRetryAsync<T>(Func<Task<T>> action, int maxAttempts = 3,
-        int delayMilliseconds = 1000)
+    public static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
     {
-        int attempts = 0;
-
-        while (true)
-        {
-            try
-            {
-                return await action();
-            }
-            catch (Exception)
-            {
-                attempts++;
-                if (attempts >= maxAttempts)
-                {
-                    throw new ReachedMaxRetryAttemptsException();
-                }
-
-                await Task.Delay(delayMilliseconds);
-            }
-        }
-    }
-
-
-    public static async Task ExecuteWithRetryAsync(Func<Task> action, int maxRetryAttempts = 3,
-        int delayInMilliseconds = 1000)
-    {
-        for (int i = 0; i < maxRetryAttempts; i++)
-        {
-            try
-            {
-                await action();
-                return;
-            }
-            catch (Exception)
-            {
-                if (i == maxRetryAttempts - 1)
-                {
-                    throw new ReachedMaxRetryAttemptsException();
-                }
-
-                await Task.Delay(delayInMilliseconds);
-            }
-        }
+        return HttpPolicyExtensions
+            .HandleTransientHttpError()
+            .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+            .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
     }
 }

@@ -27,10 +27,20 @@ public class WeatherController : ControllerBase
     }
 
     [HttpGet("coordinates")]
-    public async Task<ActionResult<List<CoordinatesDto>>> GetCoordinatesList()
+    public async Task<ActionResult<IEnumerable<CoordinatesDto>>> GetCoordinatesList([FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 50)
     {
-        var query = new GetCoordinatesQuery();
-    
+        if (pageNumber < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(pageNumber), "Page number must be greater than or equal to 1.");
+        }
+        if (pageSize < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(pageSize), "Page size must be greater than or equal to 1.");
+        }
+        
+        var query = new GetCoordinatesQuery(pageSize, pageNumber);
+
         return Ok(await _mediator.Send(query));
     }
 

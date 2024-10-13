@@ -79,6 +79,6 @@ public class CurrentWeather
     [JsonPropertyName("is_day")]
     public int? IsDay { get; set; }
 
-    // [JsonPropertyName("weathercode")]
-    // public int? WeatherCode { get; set; }
+    [JsonPropertyName("weathercode")]
+    public int? WeatherCode { get; set; }
 }

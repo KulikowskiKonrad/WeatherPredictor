@@ -1,11 +1,10 @@
 ﻿using WeatherPredictor.Application.Abstractions.Queries;
 using WeatherPredictor.Domain.DTO;
 using WeatherPredictor.Domain.Repositories;
-using WeatherPredictor.Infrastructure.Utils;
 
 namespace WeatherPredictor.Application.Queries;
 
-public sealed class GetCoordinatesQueryHandler : IQueryHandler<GetCoordinatesQuery, List<CoordinatesDto>>
+public sealed class GetCoordinatesQueryHandler : IQueryHandler<GetCoordinatesQuery, IEnumerable<CoordinatesDto>>
 {
     private readonly IWeatherRepository _weatherRepository;
 
@@ -14,8 +13,18 @@ public sealed class GetCoordinatesQueryHandler : IQueryHandler<GetCoordinatesQue
         _weatherRepository = weatherRepository;
     }
 
-    public async Task<List<CoordinatesDto>> Handle(GetCoordinatesQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<CoordinatesDto>> Handle(GetCoordinatesQuery request,
+        CancellationToken cancellationToken)
     {
-        return await RetryPolicy.ExecuteWithRetryAsync(async () => await _weatherRepository.GetUsedCoordinatesAsync());
+        var totalItems = await _weatherRepository.GetTotalCoordinatesCountAsync();
+
+        var skip = (request.PageNumber - 1) * request.PageSize;
+
+        if (skip >= totalItems)
+        {
+            return new List<CoordinatesDto>();
+        }
+
+        return await _weatherRepository.GetUsedCoordinatesAsync(skip, request.PageSize);
     }
 }

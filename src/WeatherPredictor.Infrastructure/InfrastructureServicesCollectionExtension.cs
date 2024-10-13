@@ -21,8 +21,6 @@ public static class InfrastructureServicesCollectionExtension
         services.AddMemoryCache();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<ICommand>());
 
-        services.AddScoped<IWeatherApiService, WeatherApiService>();
-
         services.AddScoped(typeof(Logger<>));
 
         services.AddDatabase(configurationManager, environment);
