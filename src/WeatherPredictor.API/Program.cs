@@ -18,6 +18,11 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1",
         Description = "API to retrieve weather information"
     });
+    
+    c.AddServer(new Microsoft.OpenApi.Models.OpenApiServer
+    {
+        Url = "https://weatherpredictorapp.azurewebsites.net"
+    });
 });
 
 builder.Services.Configure<OpenMeteoOptions>(
@@ -31,9 +36,9 @@ builder.Services.AddHttpClient<IOpenMeteoWeatherApiService, OpenMeteoWeatherApiS
 builder.Services.AddInfrastructure(builder.Environment, builder.Configuration);
 
 var app = builder.Build();
-
+app.UseCors("AnyOrigin"); // for tests
 app.UseSwagger();
-app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/", "Weather predictor"); });
+app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Weather predictor"); });
 
 app.UseCustomExceptionHandler();
 app.UseHsts();
