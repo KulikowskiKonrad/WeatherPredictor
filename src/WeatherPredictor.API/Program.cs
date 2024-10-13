@@ -10,7 +10,15 @@ builder.Services.AddControllers();
 builder.Services.AddLogging();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Weather API",
+        Version = "v1",
+        Description = "API to retrieve weather information"
+    });
+});
 
 builder.Services.Configure<OpenMeteoOptions>(
     builder.Configuration.GetSection(OpenMeteoOptions.OpenMeteo));
