@@ -20,6 +20,17 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
 builder.Services.Configure<OpenMeteoOptions>(
     builder.Configuration.GetSection(OpenMeteoOptions.OpenMeteo));
 
@@ -33,7 +44,11 @@ builder.Services.AddInfrastructure(builder.Environment, builder.Configuration);
 var app = builder.Build();
 app.UseCors("AnyOrigin"); // for tests
 app.UseSwagger();
-app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Weather predictor"); });
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Weather predictor");
+    c.RoutePrefix = string.Empty;
+});
 
 app.UseCustomExceptionHandler();
 app.UseHsts();
