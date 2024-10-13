@@ -1,3 +1,4 @@
+using Microsoft.Net.Http.Headers;
 using WeatherPredictor.API.Middleware;
 using WeatherPredictor.Application.OtionsSettings;
 using WeatherPredictor.Application.Services;
@@ -27,12 +28,12 @@ builder.Services.AddCors(options =>
         {
             builder.AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                .WithHeaders(HeaderNames.ContentType);
         });
 });
 
-builder.Services.Configure<OpenMeteoOptions>(
-    builder.Configuration.GetSection(OpenMeteoOptions.OpenMeteo));
+builder.Services.Configure<OpenMeteoOptions>(builder.Configuration.GetSection(OpenMeteoOptions.OpenMeteo));
 
 builder.Services.AddHttpClient<IOpenMeteoWeatherApiService, OpenMeteoWeatherApiService>((client) =>
 {
@@ -42,6 +43,7 @@ builder.Services.AddHttpClient<IOpenMeteoWeatherApiService, OpenMeteoWeatherApiS
 builder.Services.AddInfrastructure(builder.Environment, builder.Configuration);
 
 var app = builder.Build();
+
 app.UseCors("AllowAll"); // for tests
 app.UseSwagger();
 app.UseSwaggerUI(c =>
