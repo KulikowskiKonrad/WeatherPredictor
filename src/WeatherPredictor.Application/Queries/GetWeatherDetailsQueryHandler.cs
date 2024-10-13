@@ -45,11 +45,15 @@ public sealed class GetWeatherDetailsQueryHandler : IQueryHandler<GetWeatherDeta
 
         if (weatherDetailsListsFromDb is not null)
         {
+            _logger.LogInformation("Checking is coordinates exist in database");
+
             return JsonSerializer.Deserialize<WeatherDetailsDto>(weatherDetailsListsFromDb.Forecast);
         }
 
         var weatherDetailsListsFromApi = await _retryPolicy.ExecuteAsync(async () =>
         {
+            _logger.LogInformation("Getting data form external api");
+
             var response =
                 await _openMeteoWeatherApiService.GetDetailsAsync<WeatherDetailsExternalApiDto>(request.Latitude,
                     request.Longitude);
