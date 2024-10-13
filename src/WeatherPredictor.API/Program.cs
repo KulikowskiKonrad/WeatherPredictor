@@ -42,7 +42,7 @@ builder.Services.AddHttpClient<IOpenMeteoWeatherApiService, OpenMeteoWeatherApiS
 builder.Services.AddInfrastructure(builder.Environment, builder.Configuration);
 
 var app = builder.Build();
-app.UseCors("AnyOrigin"); // for tests
+app.UseCors("AllowAll"); // for tests
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
