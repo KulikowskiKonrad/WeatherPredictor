@@ -1,7 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Caching.Memory;
 using WeatherPredictor.Application.Abstractions.Commands;
-using WeatherPredictor.Application.Utils;
 using WeatherPredictor.Domain.Entities;
 using WeatherPredictor.Domain.Repositories;
 

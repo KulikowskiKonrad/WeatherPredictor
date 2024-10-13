@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Moq;
 using WeatherPredictor.Application.Exceptions;
 using WeatherPredictor.Application.Queries;
@@ -16,17 +17,19 @@ public class GetWeatherDetailsQueryHandlerTests
     private readonly Mock<IWeatherRepository> _weatherRepositoryMock;
     private readonly Mock<IOpenMeteoWeatherApiService> _weatherApiServiceMock;
     private readonly Mock<IMemoryCache> _memoryCacheMock;
+    private readonly Mock<ILogger<GetWeatherDetailsQueryHandler>> _logger;
     private readonly GetWeatherDetailsQueryHandler _handler;
 
-    public GetWeatherDetailsQueryHandlerTests()
+    public GetWeatherDetailsQueryHandlerTests(Mock<ILogger<GetWeatherDetailsQueryHandler>> logger)
     {
+        _logger = logger;
         // Arrange
         _weatherRepositoryMock = new Mock<IWeatherRepository>();
         _weatherApiServiceMock = new Mock<IOpenMeteoWeatherApiService>();
         _memoryCacheMock = new Mock<IMemoryCache>();
 
         _handler = new GetWeatherDetailsQueryHandler(_weatherRepositoryMock.Object, _weatherApiServiceMock.Object,
-            _memoryCacheMock.Object);
+            _memoryCacheMock.Object, _logger.Object);
     }
 
     [Fact]

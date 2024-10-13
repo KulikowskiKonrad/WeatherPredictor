@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Polly;
 using WeatherPredictor.Application.Abstractions.Queries;
 using WeatherPredictor.Application.Exceptions;
@@ -17,14 +18,16 @@ public sealed class GetWeatherDetailsQueryHandler : IQueryHandler<GetWeatherDeta
     private readonly IOpenMeteoWeatherApiService _openMeteoWeatherApiService;
     private readonly IMemoryCache _cache;
     private readonly IAsyncPolicy<HttpResponseMessage> _retryPolicy;
+    private readonly ILogger<GetWeatherDetailsQueryHandler> _logger;
 
     public GetWeatherDetailsQueryHandler(IWeatherRepository weatherRepository,
         IOpenMeteoWeatherApiService openMeteoWeatherApiService,
-        IMemoryCache cache)
+        IMemoryCache cache, ILogger<GetWeatherDetailsQueryHandler> logger)
     {
         _weatherRepository = weatherRepository;
         _openMeteoWeatherApiService = openMeteoWeatherApiService;
         _cache = cache;
+        _logger = logger;
         _retryPolicy = RetryPolicy.GetRetryPolicy();
     }
 
@@ -51,6 +54,8 @@ public sealed class GetWeatherDetailsQueryHandler : IQueryHandler<GetWeatherDeta
                 await _openMeteoWeatherApiService.GetDetailsAsync<WeatherDetailsExternalApiDto>(request.Latitude,
                     request.Longitude);
 
+            _logger.LogInformation("Response from external client {response}", response);
+            
             if (response == null)
             {
                 throw new ErrorWhileGettingDataFormExternalApiException();
