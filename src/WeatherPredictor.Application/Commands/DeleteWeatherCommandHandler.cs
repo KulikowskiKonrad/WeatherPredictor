@@ -1,6 +1,5 @@
 ﻿using WeatherPredictor.Application.Abstractions.Commands;
 using WeatherPredictor.Domain.Repositories;
-using WeatherPredictor.Infrastructure.Utils;
 
 namespace WeatherPredictor.Application.Commands;
 
@@ -15,9 +14,6 @@ public sealed class DeleteWeatherCommandHandler : ICommandHandler<DeleteWeatherC
 
     public async Task Handle(DeleteWeatherCommand request, CancellationToken cancellationToken)
     {
-        await RetryPolicy.ExecuteWithRetryAsync(async () =>
-        {
-            await _weatherRepository.DeleteAsync(request.Latitude, request.Longitude);
-        });
+        await _weatherRepository.DeleteAsync(request.Latitude, request.Longitude);
     }
 }

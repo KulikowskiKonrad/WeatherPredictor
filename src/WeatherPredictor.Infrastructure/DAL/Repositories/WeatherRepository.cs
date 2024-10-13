@@ -39,14 +39,22 @@ public class WeatherRepository : IRepository, IWeatherRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<CoordinatesDto>> GetUsedCoordinatesAsync()
+    public async Task<IEnumerable<CoordinatesDto>> GetUsedCoordinatesAsync(int skip, int take)
     {
         return await _context.Weathers
-            .Select(x => new CoordinatesDto() {Longitude = x.Longitude, Latitude = x.Latitude}).ToListAsync();
+            .Select(x => new CoordinatesDto() {Longitude = x.Longitude, Latitude = x.Latitude})
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync();
     }
 
     public async Task<bool> IsExistAsync(double latitude, double longitude)
     {
         return await _context.Weathers.AnyAsync(x => x.Latitude == latitude && x.Longitude == longitude);
+    }
+
+    public async Task<int> GetTotalCoordinatesCountAsync()
+    {
+        return await _context.Weathers.CountAsync();
     }
 }

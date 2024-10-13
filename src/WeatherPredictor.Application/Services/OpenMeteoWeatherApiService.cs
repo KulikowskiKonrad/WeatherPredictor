@@ -1,20 +1,25 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using WeatherPredictor.Application.Exceptions;
+using WeatherPredictor.Application.OtionsSettings;
 using WeatherPredictor.Application.Services.Abstractions;
 
 namespace WeatherPredictor.Application.Services;
 
-public class WeatherApiService : IWeatherApiService
+public class OpenMeteoWeatherApiService : IOpenMeteoWeatherApiService
 {
-    private readonly ILogger<WeatherApiService> _logger;
+    private readonly ILogger<OpenMeteoWeatherApiService> _logger;
+    private readonly OpenMeteoOptions _openMeteoOptions;
     private readonly HttpClient _httpClient;
 
-    public WeatherApiService(ILogger<WeatherApiService> logger, HttpClient httpClient)
+    public OpenMeteoWeatherApiService(ILogger<OpenMeteoWeatherApiService> logger, HttpClient httpClient,
+        IOptions<OpenMeteoOptions> openMeteo)
     {
         _logger = logger;
         _httpClient = httpClient;
+        _openMeteoOptions = openMeteo.Value;
     }
 
     public async Task<T> GetDetailsAsync<T>(double latitude, double longitude)
@@ -26,7 +31,7 @@ public class WeatherApiService : IWeatherApiService
             Method = HttpMethod.Get,
             RequestUri =
                 new Uri(
-                    $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true")
+                    $"{_openMeteoOptions.ApiUrl}/v1/forecast?latitude={Math.Round(latitude, 2)}&longitude={Math.Round(longitude, 2)}&current_weather=true")
         };
 
         var response = await _httpClient.SendAsync(requestMessage);
@@ -51,8 +56,8 @@ public class WeatherApiService : IWeatherApiService
                         PropertyNameCaseInsensitive = true,
                         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
                     };
-                    
-                    _logger.LogInformation($"Response: {x.Result}");
+
+                    _logger.LogInformation("Response: {response}", x.Result);
                     result = JsonSerializer.Deserialize<T[]>(x.Result, options);
                 }
             });
@@ -75,7 +80,7 @@ public class WeatherApiService : IWeatherApiService
             }
         });
 
-        _logger.LogError($"Http Error: {response.StatusCode}, {responseBody}");
+        _logger.LogError("Http Error: {statusCode}, {responseBody}", response.StatusCode, responseBody);
         throw new ErrorWhileGettingDataFormExternalApiException();
     }
 }
