@@ -1,10 +1,10 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using WeatherPredictor.Application.Exceptions;
 using WeatherPredictor.Application.OtionsSettings;
 using WeatherPredictor.Application.Services.Abstractions;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace WeatherPredictor.Application.Services;
 
@@ -51,14 +51,15 @@ public class OpenMeteoWeatherApiService : IOpenMeteoWeatherApiService
             {
                 if (!x.IsFaulted)
                 {
-                    var options = new JsonSerializerOptions
+                    var options = new JsonSerializerSettings
                     {
-                        PropertyNameCaseInsensitive = true,
-                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                        MissingMemberHandling = MissingMemberHandling.Ignore,
+                        NullValueHandling = NullValueHandling.Ignore,
+                        DefaultValueHandling = DefaultValueHandling.Include
                     };
 
                     _logger.LogInformation("Response: {response}", x.Result);
-                    result = JsonSerializer.Deserialize<T[]>(x.Result, options);
+                    result = JsonConvert.DeserializeObject<T[]>(x.Result, options);
                 }
             });
 

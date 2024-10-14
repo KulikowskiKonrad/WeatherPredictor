@@ -1,84 +1,85 @@
 ﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace WeatherPredictor.Domain.DTO;
 
 public class WeatherDetailsExternalApiDto
 {
-    [JsonPropertyName("latitude")]
+    [JsonProperty("latitude")]
     public double Latitude { get; set; }
 
-    [JsonPropertyName("longitude")]
+    [JsonProperty("longitude")]
     public double Longitude { get; set; }
 
-    [JsonPropertyName("generationtime_ms")]
+    [JsonProperty("generationtime_ms")]
     public double? GenerationTimeMs { get; set; }
 
-    [JsonPropertyName("utc_offset_seconds")]
+    [JsonProperty("utc_offset_seconds")]
     public int? UtcOffsetSeconds { get; set; }
 
-    [JsonPropertyName("timezone")]
+    [JsonProperty("timezone")]
     public string? Timezone { get; set; }
 
-    [JsonPropertyName("timezone_abbreviation")]
+    [JsonProperty("timezone_abbreviation")]
     public string? TimezoneAbbreviation { get; set; }
 
-    [JsonPropertyName("elevation")]
+    [JsonProperty("elevation")]
     public double? Elevation { get; set; }
 
-    [JsonPropertyName("location_id")]
+    [JsonProperty("location_id")]
     public int? LocationId { get; set; }
 
-    [JsonPropertyName("current_weather_units")]
+    [JsonProperty("current_weather_units")]
     public CurrentWeatherUnits CurrentWeatherUnits { get; set; } = new();
 
-    [JsonPropertyName("current_weather")] 
+    [JsonProperty("current_weather")] 
     public CurrentWeather CurrentWeather { get; set; } = new();
 }
 
 public class CurrentWeatherUnits
 {
-    [JsonPropertyName("time")]
+    [JsonProperty("time")]
     public string? Time { get; set; }
 
-    [JsonPropertyName("interval")]
+    [JsonProperty("interval")]
     public string? Interval { get; set; }
 
-    [JsonPropertyName("temperature")]
+    [JsonProperty("temperature")]
     public string? Temperature { get; set; }
 
-    [JsonPropertyName("windspeed")]
+    [JsonProperty("windspeed")]
     public string? Windspeed { get; set; }
 
-    [JsonPropertyName("winddirection")]
+    [JsonProperty("winddirection")]
     public string? Winddirection { get; set; }
 
-    [JsonPropertyName("is_day")]
+    [JsonProperty("is_day")]
     public string? IsDay { get; set; }
 
-    [JsonPropertyName("weathercode")]
+    [JsonProperty("weathercode")]
     public string? WeatherCode { get; set; }
 }
 
 public class CurrentWeather
 {
-    [JsonPropertyName("time")]
+    [JsonProperty("time")]
     public string? Time { get; set; }
 
-    [JsonPropertyName("interval")]
+    [JsonProperty("interval")]
     public int? Interval { get; set; }
 
-    [JsonPropertyName("temperature")]
+    [JsonProperty("temperature")]
     public double? Temperature { get; set; }
 
-    [JsonPropertyName("windspeed")]
+    [JsonProperty("windspeed")]
     public double? Windspeed { get; set; }
 
-    [JsonPropertyName("winddirection")]
+    [JsonProperty("winddirection")]
     public int? Winddirection { get; set; }
 
-    [JsonPropertyName("is_day")]
+    [JsonProperty("is_day")]
     public int? IsDay { get; set; }
 
-    [JsonPropertyName("weathercode")]
+    [JsonProperty("weathercode")]
     public int? WeatherCode { get; set; }
 }
