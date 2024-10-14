@@ -59,7 +59,7 @@ public sealed class GetWeatherDetailsQueryHandler : IQueryHandler<GetWeatherDeta
                     request.Longitude);
 
             _logger.LogInformation("Response from external client {response}", response);
-            
+
             if (response == null)
             {
                 throw new ErrorWhileGettingDataFormExternalApiException();
@@ -82,15 +82,21 @@ public sealed class GetWeatherDetailsQueryHandler : IQueryHandler<GetWeatherDeta
             CreateDate = DateTime.UtcNow
         };
 
+        var exist = await _weatherRepository.IsExistAsync(weatherDetailsExternal.Latitude,
+            weatherDetailsExternal.Longitude);
+
         _cache.Set(memoryCacheKey, mappedDetails, TimeSpan.FromSeconds(3));
 
-        try
+        if (!exist)
         {
-            await _weatherRepository.AddAsync(weather);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException(ex.Message, ex.InnerException);
+            try
+            {
+                await _weatherRepository.AddAsync(weather);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(ex.Message, ex.InnerException);
+            }
         }
 
         return mappedDetails;
