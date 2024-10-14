@@ -45,6 +45,7 @@ public class WeatherRepository : IRepository, IWeatherRepository
             .Select(x => new CoordinatesDto() {Longitude = x.Longitude, Latitude = x.Latitude})
             .Skip(skip)
             .Take(take)
+            .Distinct()
             .ToListAsync();
     }
 
