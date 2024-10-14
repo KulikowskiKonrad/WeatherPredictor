@@ -41,7 +41,7 @@ public class OpenMeteoWeatherApiService : IOpenMeteoWeatherApiService
 
     private async Task<T> GetResultAsync<T>(HttpResponseMessage? response)
     {
-        T[]? result = default;
+        T? result = default;
 
         if (response.IsSuccessStatusCode)
         {
@@ -59,11 +59,30 @@ public class OpenMeteoWeatherApiService : IOpenMeteoWeatherApiService
                     };
 
                     _logger.LogInformation("Response: {response}", x.Result);
-                    result = JsonConvert.DeserializeObject<T[]>(x.Result, options);
+
+                    try
+                    {
+                        // Check if x.Result is a JSON array
+                        if (x.Result.TrimStart().StartsWith("["))
+                        {
+                           var results =  JsonConvert.DeserializeObject<T[]>(x.Result, options);
+                           result = results.FirstOrDefault();
+                        }
+                        else
+                        {
+                            // If not an array, deserialize as a single object
+                            result = JsonConvert.DeserializeObject<T>(x.Result, options);
+                        }
+                        
+                    } catch (JsonSerializationException ex)
+                    {
+                        _logger.LogError(ex, "Error during JSON deserialization");
+                        throw;
+                    }
                 }
             });
 
-            return result.FirstOrDefault();
+            return result;
         }
 
         _logger.LogInformation(
